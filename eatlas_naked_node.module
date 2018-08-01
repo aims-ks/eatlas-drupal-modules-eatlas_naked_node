@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * http://<DRUPAL SERVER>/eatlas_naked_node/<NODE ID>
+ */
+function eatlas_naked_node_menu() {
+	// http://drupal.stackexchange.com/questions/38576/page-which-display-only-content-no-header-footer-sidebars
+	$items = array();
+
+	$items['eatlas_naked_node/%node/content'] = array(
+		'page callback' => '_eatlas_naked_node_content', // Name of the function to call
+		'page arguments' => array(1), // The parameter "file" loaded with "file_load"
+		'access callback' => 'node_access', // Access granted if node can be viewed
+		'access arguments' => array('view', 1)
+	);
+
+	$items['eatlas_naked_node/%node/summary'] = array(
+		'page callback' => '_eatlas_naked_node_summary', // Name of the function to call
+		'page arguments' => array(1), // The parameter "file" loaded with "file_load"
+		'access callback' => 'node_access', // Access granted if node can be viewed
+		'access arguments' => array('view', 1)
+	);
+
+	$items['eatlas_naked_node/%node/title'] = array(
+		'page callback' => '_eatlas_naked_node_title', // Name of the function to call
+		'page arguments' => array(1), // The parameter "file" loaded with "file_load"
+		'access callback' => 'node_access', // Access granted if node can be viewed
+		'access arguments' => array('view', 1)
+	);
+
+	return $items;
+}
+
+/**
+ * Output content directly; bypass the template engine
+ */
+function _eatlas_naked_node_content($node) {
+	$node_view = node_view($node);
+	print drupal_render($node_view);
+
+	// Exit: Stop the execution.
+	// NOTE: This is probably unnecessary, but all
+	//   the examples I could find were doing it.
+	exit;
+}
+
+/**
+ * Output content directly; bypass the template engine
+ */
+function _eatlas_naked_node_summary($node) {
+	$body_items = field_get_items('node', $node, 'body');
+	if (!empty($body_items)) {
+		print($body_items[0]['summary']);
+	}
+
+	// Exit: Stop the execution.
+	// NOTE: This is probably unnecessary, but all
+	//   the examples I could find were doing it.
+	exit;
+}
+
+/**
+ * Output content directly; bypass the template engine
+ */
+function _eatlas_naked_node_title($node) {
+	print $node->title;
+
+	// Exit: Stop the execution.
+	// NOTE: This is probably unnecessary, but all
+	//   the examples I could find were doing it.
+	exit;
+}
+
+?>

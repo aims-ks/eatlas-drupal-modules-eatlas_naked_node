@@ -1,0 +1,14 @@
+; $Id$
+name = eAtlas Naked node
+description = Display nodes without header and footer.
+core = 7.x
+
+files[] = eatlas_naked_node.module
+
+package = eAtlas
+
+; Attributes used by the update module.
+; There fields needs to be removed if the module is migrated to Drupal.org
+project status url = "http://drupal.eatlas.org.au/modules/eatlas"
+version = "7.x-1.2"
+project = "eatlas_naked_node"
